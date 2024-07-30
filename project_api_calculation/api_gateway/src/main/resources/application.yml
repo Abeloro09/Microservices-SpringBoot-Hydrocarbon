@@ -1,0 +1,62 @@
+server:
+ port: 8090
+
+spring:
+ application:
+  name: ms-api_gateway
+
+
+ main:
+   allow-bean-definition-overriding: true
+
+
+   #Configuracion Gateway
+ cloud:
+   gateway:
+     routes:
+       - id: ms-infotank
+         uri: lb://ms-infotank
+         predicates:
+           - Path=/infotank/**
+         filters:
+           #en este filtro se establece cuantos segmentos de la ruta del path se van a eliminar, es decir que lo que no se elimine es la peticion que le va a llegar al servicio
+           - StripPrefix=1
+
+       - id: ms-liquidacion
+         uri: lb://ms-liquidacion
+         predicates:
+           - Path=/liquidacion/**
+         filters:
+           - StripPrefix=1
+
+       - id: servicio-oauth
+         uri: lb://servicio-oauth
+         predicates:
+           - Path=/security/**
+         filters:
+           - StripPrefix=1
+
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
+
+
+
+
+
+
+
+

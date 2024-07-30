@@ -1,0 +1,10 @@
+com.api_calculation
+com.api_calculation.client
+com.api_calculation.context
+com.api_calculation.controller
+com.api_calculation.mapper
+com.api_calculation.persistence.entity
+com.api_calculation.persistence.repository
+com.api_calculation.service
+com.api_calculation.service.dto
+com.api_calculation.util
